@@ -10,16 +10,21 @@ Prerequisities:
 
 What needs to be done:
 1) Copy the script "backup.sh" to your favourite folder (I am using "/home/pi4") and run:
+
 $ sudo cp backup.sh /home/pi4
 
 2) Set script permissions
+
 $ sudo chmod a+x backup.sh
 
 3) Copy also "rsync-exclude.txt" to /usr/bin/rsync-exclude.txt
+
 $ sudo cp rsync-exclude.txt /usr/bin/rsync-exclude.txt
 
 4) Edit script to fit your needs
+
 $ sudo nano backup.sh
 
 5) Run the script
+
 $ sudo ./backup.sh
