@@ -3,10 +3,11 @@
 
 #Mounting USB Storage for MV from RAM Disk - Cancel script if fail. (we could do later for example local backup onyl if fail)
 
-#This I should use for TAR rather than for mount as ount have this inside already...
-sudo mkdir -p /mnt/PrcekBlue
-sudo mount -L PrcekBlue /mnt/PrcekBlue
+#Mounting USB HDD
+mkdir -p /mnt/PrcekBlue
+mount -L PrcekBlue /mnt/PrcekBlue
 
+#Checking if USB HDD was mounted
 mount="/mnt/PrcekBlue"
 
 if grep -qs "$mount" /proc/mounts; then
@@ -22,7 +23,7 @@ else
   fi
 fi
 
-#Script to synchronise Pi files to backup
+#Script to synchronise Pi files to Backup folder on USB HDD, fails if there is no drive
 BACKUP_MOUNTED=$(mount | awk '/PrcekBlue/ {print $6}' | grep "rw")
 if [ $BACKUP_MOUNTED ]; then
     echo $BACKUP_MOUNTED
@@ -33,11 +34,11 @@ else
 fi
 
 #Tar created to RAM-disk, then move to USB mounted drive
-sudo mkdir /mnt/BackupRAM
-sudo mount -t tmpfs -o size=3G,mode=700 tmpfs /mnt/BackupRAM
+mkdir /mnt/BackupRAM
+mount -t tmpfs -o size=3G,mode=700 tmpfs /mnt/BackupRAM
 cd /mnt/PrcekBlue/
-sudo tar cfzv /mnt/BackupRAM/prcek_backup-$(date +%Y.%m.%d_%H-%M-%S).tar.gz Backup
-sudo mv /mnt/BackupRAM/* /mnt/PrcekBlue
+tar cfzv /mnt/BackupRAM/prcek_backup-$(date +%Y.%m.%d_%H-%M-%S).tar.gz Backup
+mv /mnt/BackupRAM/* /mnt/PrcekBlue
 cd
 sleep 5
 echo "Now wait for unmounting RAM Disk and writing cache data to USB drive..."
@@ -57,11 +58,6 @@ else
   fi
 fi
 
-##cd /mnt/PrcekBlue/
-##sudo tar cfzv prcek_backup-$(date +%Y_%m_%d-%HH%MM%SS).tar.gz Backup
-##cd
-#
-#How to recover from this? (This will change...)
-#
-#sudo rsync -avH /mnt/PrcekBlue/Backup/ /
-#
+#How to recover from this?
+# sudo rsync -avH /mnt/PrcekBlue/Backup/ /
+
