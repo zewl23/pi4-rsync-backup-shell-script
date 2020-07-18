@@ -3,8 +3,8 @@ Personal script for backing up Raspberry Pi4 to USB HDD
 
 Prerequisities:
 1) Raspberry Pi4 4GB minimum with enough free RAM (3GB minimum), or you can change script to use the same USB drive for creating the tar.gz from your Backup folder inside the drive it self and do not copy compressed data from RAM drive to USB drive
-1) USB HDD must have a partition called PrcekBlue OR find and edit to fit your partition LABEL on USB drive
-2) Your backup must fit into 3GB total compressed - it will create RAM disk with 3GB to store compressed data from folder Backup on USB drive after rsync backup 
+2) USB HDD must have a partition called PrcekBlue OR you can find "PrcekBlue" in "backup.sh" and chage it to fit your partition LABEL on USB drive
+3) Your backup must fit into 3GB total compressed - it will create RAM disk with 3GB to store compressed data from folder Backup on USB drive after rsync backup 
 
 1) Copy the script "backup.sh" to your favourite folder (I am using "/home/pi4") and run:
 $ sudo cp backup.sh /home/pi4
